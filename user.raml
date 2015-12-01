@@ -1,0 +1,18 @@
+#%RAML 1.0
+title: file upload
+version: v1
+baseUri: http://api.fangcloud.com/{version}
+
+/users:
+  get:
+    description: get contact list
+    queryParameters:
+      search_string: string
+  /{id}:
+    get:
+      description: get user info
+    patch:
+      description: update user info
+# 预览
+
+# 下载

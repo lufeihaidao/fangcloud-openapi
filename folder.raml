@@ -1,0 +1,62 @@
+#%RAML 1.0
+title: folders
+version: v1
+baseUri: http://api.fangcloud.com/{version}
+mediaType: application/json
+uses:
+  Item: !include types/item.raml
+
+/folders:
+  post:
+    description: create new folder
+    body:
+      application/json:
+        type: Item.Folder
+  /trash/items:
+    get:
+      description: get trash list
+  /{id}:
+    delete:
+      description: delete a folder
+      responses:
+        204:
+    patch:
+      description: update folder info
+      body:
+        application/json:
+          type: Item.Folder
+    get:
+      description: get folder info
+      responses:
+        200:
+          body:
+            application/json:
+              type: Item.Folder
+    /copy:
+      description: copy a folder to a folder
+    /move:
+      description: move a folder to a folder
+    /share:
+      get:
+        description: get folder share link
+      patch:
+        description: update share link info(password, permission)
+      post:
+        description: create share link
+      delete:
+        description: delete share link
+    /trash:
+      get:
+        description: get trashed folder info
+      post:
+        description: restore a trashed folder
+      delete:
+        description: permanently delete a folder
+    /items:
+      get:
+        description: get children of a folder
+        responses:
+          200:
+            body:
+              application/json:
+                type: ( Item.Folder | Item.File )[] # 应该是 Item[]

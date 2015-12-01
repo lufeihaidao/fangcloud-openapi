@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: file upload
+version: v1
+baseUri: https://upload.box.com/api/{version}
+uses:
+  Item: !include types/item.raml
+
+/files: #也许需要特殊指定到 upload 服务器
+  post:
+    description: uplaod new file or file new version
+    body:
+      multipart/formdata:
+        type: object
+        properties:
+          attributes: string # JSON string, parent folder id, file name
+          file: file
+    responses:
+      200:
+        body:
+          application/json:
+            type: Item.File
+  options:
+    description: pre check for upload
+    responses:
+      200:
+
+# 预览
+
+# 下载

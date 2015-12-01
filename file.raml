@@ -1,0 +1,82 @@
+#%RAML 1.0
+title: files
+version: v1
+baseUri: http://api.fangcloud.com/{version}
+mediaType: application/json
+uses:
+  Item: !include types/item.raml
+
+/files:
+  /{id}:
+    delete:
+      description: delete a file
+      responses:
+        204:
+    patch:
+      description: update file info
+      body:
+        application/json:
+          type: Item.File
+    get:
+      description: get file info
+      responses:
+        200:
+          body:
+            application/json:
+              type: Item.File
+    /download:
+      get:
+        description: get file download link
+        responses:
+          200:
+            body:
+              application/json: # download uri
+          302: # download uri
+    /copy:
+      description: copy a file to a folder
+    /move:
+      description: move a file to a folder
+    /preview:
+      description: get a preview link of a file
+    /share:
+      get:
+        description: get file share link
+      patch:
+        description: update share link info(password, permission)
+      post:
+        description: create share link
+      delete:
+        description: delete share link
+    /trash:
+      get:
+        description: get trashed file info
+      post:
+        description: restore a trashed file
+      delete:
+        description: permanently delete a file
+    /comments:
+      get:
+        description: get comments of a file
+      post:
+        description: create a new comment to a file
+      delete:
+        description: delete a comment
+    /lock:
+    /unlock: # lock unlock 是否合成一个 api 比较好
+    /thumbnail.extension:
+      get:
+        description: get file thumbnail
+        queryParameters:
+          min_height: integer
+          min_width: integer
+          # max height, width, specific height and width
+    /versions:
+      description: versions control
+      get:
+        description: get all versions of a file
+      /current:
+        post:
+          description: set current version
+      /{id}:
+        delete:
+          description: delete an old version
